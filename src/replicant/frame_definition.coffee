@@ -54,7 +54,12 @@ Replicant.registerElement "replicant-frame",
       new Replicant.Location @window?.location
 
     set: (location) ->
-      @iframeElement.src = location.toString()
+      location = location.toString()
+      if location.charAt(0) is "#"
+        currentLocation = @location
+        currentLocation.hash = location
+        location = currentLocation.toString()
+      @iframeElement.src = location
 
   title:
     get: ->
