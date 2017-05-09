@@ -26,6 +26,15 @@ QUnit.module "Replicant.Session"
       assert.equal(navigation.action, "push")
       done()
 
+@frameTest "clicking a hashchange link", (frame, assert, done) ->
+  session = frame.createSession()
+  session.goToLocation "/fixtures/default.html", ->
+    session.clickSelector "#hashchange-link", (navigation) ->
+      assert.equal(navigation.location.pathname, "/fixtures/default.html")
+      assert.equal(navigation.location.hash, "#hash")
+      assert.equal(navigation.action, "pop")
+      done()
+
 @frameTest "waiting for an event", (frame, assert, done) ->
   session = frame.createSession()
   session.goToLocation "/fixtures/event.html", (navigation) ->
